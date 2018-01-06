@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <th>Title</th>
+    <td><%= @todo.name %></td>
+  </tr>
+  <tr>
+    <th>Due Date</th>
+    <td><%= @todo.due_date %></td>
+  </tr>
+  <tr>
+    <th>Detail</th>
+    <td><%= simple_format(@todo.note) %></td>
+  </tr>
+</table>
+
+<%= link_to 'Back to index', todos_path %>
