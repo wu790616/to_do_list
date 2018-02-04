@@ -1,0 +1,23 @@
+<% if @todo.errors.present? %>
+  <ul>
+    <% @todo.errors.each do |error, message| %>
+      <li> <%= "#{error.capitalize}  #{message}" %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @todo do |f| %>
+  <%= f.label :status, "Finish?" %>
+  <%= f.text_field :status %>
+
+  <%= f.label :name, "Title" %>
+  <%= f.text_field :name %>
+
+  <%= f.label :due_date, "Due_date" %>
+  <%= f.text_field :due_date, :value => (f.object.due_date || Date.today) %>
+
+  <%= f.label :note, "Note" %>
+  <%= f.text_area :note %>
+
+  <%= f.submit %>
+<% end %>
