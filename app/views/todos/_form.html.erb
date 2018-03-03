@@ -6,18 +6,40 @@
   </ul>
 <% end %>
 
-<%= form_for @todo do |f| %>
-  <%= f.label :status, "Finish?" %>
-  <%= f.text_field :status %>
+<div class="form form-horizontal">
+  <%= form_for @todo do |f| %>
+    <div class="form-group">
+      <%= f.label :status, "Finish?", class: "col-sm-1 control-label" %>
+      <div class="col-sm-1">
+        <%= f.radio_button :status, "no" %>
+        <%= label_tag(:undone, "UNDONE") %><br />
+        <%= f.radio_button :status, "yes" %>
+        <%= label_tag(:done, "DONE") %>
+      </div>
+    </div>
 
-  <%= f.label :name, "Title" %>
-  <%= f.text_field :name %>
+    <div class="form-group">
+      <%= f.label :name, "Title", class: "col-sm-1 control-label"  %>
+      <div class="col-sm-2">
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+    </div>
 
-  <%= f.label :due_date, "Due_date" %>
-  <%= f.text_field :due_date, :value => (f.object.due_date || Date.today) %>
+    <div class="form-group">
+      <%= f.label :due_date, "Due_date", class: "col-sm-1 control-label"  %>
+      <div class="col-sm-1">
+        <%= f.text_field :due_date, :value => (f.object.due_date || Date.today), class: "form-control" %>
+      </div>
+    </div>
 
-  <%= f.label :note, "Note" %>
-  <%= f.text_area :note %>
-
-  <%= f.submit %>
-<% end %>
+    <div class="form-group">
+      <%= f.label :note, "Note", class: "col-sm-1 control-label"  %>
+      <div class="col-sm-3">
+        <%= f.text_area :note, class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-sm-offset-1">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

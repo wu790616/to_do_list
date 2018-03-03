@@ -3,7 +3,9 @@ class TodosController < ApplicationController
 
   def index
     @todos = Todo.all
-    todo_overdue?
+    @todos.each do |todo|
+      todo_overdue?(todo)
+    end
   end
 
   def new
@@ -27,6 +29,7 @@ class TodosController < ApplicationController
 
   def update
     if @todo.update_attributes(todo_params)
+      todo_overdue?(@todo)
       redirect_to todo_path(@todo)
     else
       render :action => :edit
@@ -41,15 +44,16 @@ class TodosController < ApplicationController
   private
 
   def todo_params
-    params.require(:todo).permit(:name, :due_date, :note)
+    params.require(:todo).permit(:status, :name, :due_date, :note)
   end
 
-  def todo_overdue?
-    @todos.each do |todo|
-      if (todo.due_date < Date.today) && (todo.status == "no")
-        todo.status = "over"
-        todo.save
-      end
+  def todo_overdue?(todo)
+    if (todo.due_date < Date.today) && (todo.status == "no")
+      todo.status = "over"
+      todo.save
+    elsif (todo.due_date >= Date.today) && (todo.status == "over")
+      todo.status = "no"
+      todo.save
     end
   end
 
