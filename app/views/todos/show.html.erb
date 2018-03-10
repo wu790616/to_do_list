@@ -1,7 +1,15 @@
 <table class="table table-striped table-bordered table-condensed">
   <tr>
     <th>Status</th>
-    <td><%= @todo.status %></td>
+    <td>
+      <% if @todo.status == "yes" %>
+        <h4><%= label :done, "DONE", class: "label label-success" %></h4>
+      <% elsif @todo.status == "no" %>
+        <h4><%= label :undone, "UNDONE", class: "label label-warning" %></h4>
+      <% else %>
+        <h4><%= label :overdue, "OVERDUE", class: "label label-default" %></h4>
+      <% end %>
+    </td>
   <tr>
     <th>Title</th>
     <td><%= @todo.name %></td>
@@ -16,4 +24,6 @@
   </tr>
 </table>
 
-<%= link_to 'Back to index', todos_path %>
+<%= link_to todos_path, class: "btn btn-default" do %>
+    <i class="glyphicon glyphicon-home"></i> Back to index
+<% end %>

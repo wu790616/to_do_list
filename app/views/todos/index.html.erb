@@ -1,28 +1,38 @@
 <table class="table table-striped table-bordered table-condensed">
   <% @todos.each do |todo| %>
     <tr>
-      <td>
+      <th>
         <% if todo.status == "yes" %>
-          <%= label_tag(:done, "DONE") %>
+          <h4><%= label :done, "DONE", class: "label label-success" %></h4>
         <% elsif todo.status == "no" %>
-          <%= label_tag(:undone, "UNDONE") %>
+          <h4><%= label :undone, "UNDONE", class: "label label-warning" %></h4>
         <% else %>
-          <%= label_tag(:overdue, "OVERDUE") %>
+          <h4><%= label :overdue, "OVERDUE", class: "label label-default" %></h4>
         <% end %>
-      </td>
-      <td><%= todo.name %></td>
-      <td><%= todo.due_date %></td>
-      <td>
-        <%= link_to 'Detail', todo_path(todo), type: "button", class: "btn btn-default" %>
-        <%= link_to 'Edit', edit_todo_path(todo), type: "button", class: "btn btn-default" %>
+      </th>
+      <th><%= todo.name %></th>
+      <th><%= todo.due_date %></th>
+      <th>
+        <%= link_to todo_path(todo), class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-list-alt"></i> Detail
+        <% end %>
+        <%= link_to edit_todo_path(todo), class: "btn btn-default" do %>
+            <i class="glyphicon glyphicon-pencil"></i> Edit
+        <% end %>
         <% if todo.status == "over" %>
-          <%= link_to 'Delete', todo_path(todo), method: :delete, data:{ confirm: "Are you sure?"}, type: "button", class: "btn btn-default disabled" %>
+          <%= link_to todo_path(todo), method: :delete, data:{ confirm: "Are you sure?"}, type: "button", class: "btn btn-default disabled" do %>
+              <i class="glyphicon glyphicon-trash"></i> Delete
+          <% end %>
         <% else %>
-          <%= link_to 'Delete', todo_path(todo), method: :delete, data:{ confirm: "Are you sure?"}, type: "button", class: "btn btn-default" %>
+          <%= link_to todo_path(todo), method: :delete, data:{ confirm: "Are you sure?"}, type: "button", class: "btn btn-default" do %>
+              <i class="glyphicon glyphicon-trash"></i> Delete
+          <% end %>
         <% end %>
-      </td>
+      </th>
     </tr>
   <% end %>
 </table>
 
-<%= link_to 'New To Do', new_todo_path %>
+<%= link_to new_todo_path, class: "btn btn-default" do %>
+    <i class="glyphicon glyphicon-plus"></i> New To Do
+<% end %>
